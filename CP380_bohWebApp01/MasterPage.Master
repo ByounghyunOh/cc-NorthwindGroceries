@@ -1,0 +1,40 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.Master.cs" Inherits="CP380_bohWebApp01.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Northwind Groceries Prototype</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="MasterPageStyle.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h1>Northwind Groceries</h1>
+        <p> This is a prototype for Northwind Groceries products</p>
+        <p> To navigate products, hit your desired categroy at the top of the page. If you want details on a product, click the product name</p>
+        <!-- Navigation menu, Category from SQL server -->
+        <nav>
+            <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1" RepeatDirection="Horizontal" DataKeyField="CategoryID" CellPadding="2" CellSpacing="2" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="Larger" Font-Strikeout="False" Font-Underline="False">
+                <ItemStyle Font-Size="Medium" Wrap="False" />
+                <ItemTemplate>
+                    <asp:HyperLink ID="HyperLink1" runat="server" Navigateurl='<%# Eval("CategoryID", "~/Default.aspx?id={0}")%>' Text='<%# Eval("CategoryName") %>'></asp:HyperLink>  
+                </ItemTemplate>
+                <SeparatorTemplate> | </SeparatorTemplate>
+                <SelectedItemStyle Font-Names="Arial Black" />
+    
+            </asp:DataList>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:NorthwindConnectionString %>" SelectCommand="SELECT [CategoryName], [CategoryID] FROM [Categories]"></asp:SqlDataSource>
+            <br />
+
+        </nav>
+
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
